@@ -65,8 +65,8 @@ export function Home({ setPage }: { setPage: (p: any) => void }) {
               plot_bgcolor: 'rgba(15,23,42,0.5)',
               font: { color: '#94a3b8' },
               margin: { t: 20, r: 20, b: 40, l: 50 },
-              xaxis: { title: 'Time', gridcolor: '#1e293b' },
-              yaxis: { title: 'Rate', gridcolor: '#1e293b', tickformat: '.1%' },
+              xaxis: { title: { text: 'Time' }, gridcolor: '#1e293b' },
+              yaxis: { title: { text: 'Rate' }, gridcolor: '#1e293b', tickformat: '.1%' },
               showlegend: false,
               height: 280,
             }}
@@ -90,8 +90,8 @@ export function Home({ setPage }: { setPage: (p: any) => void }) {
               plot_bgcolor: 'rgba(15,23,42,0.5)',
               font: { color: '#94a3b8' },
               margin: { t: 20, r: 20, b: 40, l: 50 },
-              xaxis: { title: 'Time', gridcolor: '#1e293b' },
-              yaxis: { title: 'Price', gridcolor: '#1e293b' },
+              xaxis: { title: { text: 'Time' }, gridcolor: '#1e293b' },
+              yaxis: { title: { text: 'Price' }, gridcolor: '#1e293b' },
               showlegend: false,
               height: 280,
             }}
