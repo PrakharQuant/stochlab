@@ -11,10 +11,10 @@
 export interface HestonParams {
   S0: number;
   v0: number;
-  mu: number;      // or r under risk-neutral
+  mu: number;
   kappa: number;
   theta: number;
-  xi: number;      // vol of vol
+  xi: number;
   rho: number;
   T: number;
   nSteps: number;
@@ -73,12 +73,9 @@ export function simulateHeston(params: HestonParams): HestonPath {
       const v_pos = Math.max(v, 0);
       const sqrt_v = Math.sqrt(v_pos);
 
-      // Stock
       S = S * Math.exp((mu - 0.5 * v_pos) * dt + sqrt_v * Math.sqrt(dt) * ZS);
 
-      // Variance (full truncation)
       v = v + kappa * (theta - v_pos) * dt + xi * sqrt_v * Math.sqrt(dt) * Zv;
-      // v can go negative; next step will truncate
 
       Spath.push(S);
       vpath.push(v);
@@ -99,7 +96,13 @@ export function fellerCondition(kappa: number, theta: number, xi: number): boole
 
 /** Simple Complex number class for CF pricing */
 export class Complex {
-  constructor(public re: number, public im: number) {}
+  re: number;
+  im: number;
+
+  constructor(re: number, im: number) {
+    this.re = re;
+    this.im = im;
+  }
 
   static from(re: number, im = 0) { return new Complex(re, im); }
 
@@ -135,7 +138,6 @@ export class Complex {
 
 /**
  * Heston characteristic function of log(S_T) under risk-neutral measure.
- * Uses a standard formulation; numerical stability depends on parameter regime.
  */
 export function hestonCharFunc(
   u: Complex,
@@ -154,25 +156,25 @@ export function hestonCharFunc(
   const b = new Complex(kappa, 0);
   const rho_xi_i_u = i.mul(u).mul(rho * xi);
   const d = b.sub(rho_xi_i_u).mul(b.sub(rho_xi_i_u))
-    .sub(i.mul(u).mul(i.mul(u).add(new Complex(1))).mul(new Complex(-xi * xi / 2))).sqrt();
+    .sub(i.mul(u).mul(i.mul(u).add(new Complex(1, 0))).mul(new Complex(-xi * xi / 2, 0))).sqrt();
 
   const g = b.sub(rho_xi_i_u).sub(d).div(b.sub(rho_xi_i_u).add(d));
 
-  const exp_minus_dT = d.mul(new Complex(-T)).exp();
+  const exp_minus_dT = d.mul(new Complex(-T, 0)).exp();
   const one = new Complex(1, 0);
   const G = one.sub(g.mul(exp_minus_dT)).div(one.sub(g));
 
-  const C = i.mul(u).mul(new Complex(r * T))
+  const C = i.mul(u).mul(new Complex(r * T, 0))
     .add(
-      b.sub(rho_xi_i_u).sub(d).mul(new Complex(T))
-        .sub(G.mul(new Complex(2)).log())
-        .mul(new Complex(kappa * theta / (xi * xi)))
+      b.sub(rho_xi_i_u).sub(d).mul(new Complex(T, 0))
+        .sub(G.mul(new Complex(2, 0)).log())
+        .mul(new Complex(kappa * theta / (xi * xi), 0))
     );
 
-  const D = b.sub(rho_xi_i_u).sub(d).div(new Complex(xi * xi))
+  const D = b.sub(rho_xi_i_u).sub(d).div(new Complex(xi * xi, 0))
     .mul(one.sub(exp_minus_dT).div(one.sub(g.mul(exp_minus_dT))));
 
-  return C.add(D.mul(new Complex(v0))).add(i.mul(u).mul(new Complex(Math.log(S0)))).exp();
+  return C.add(D.mul(new Complex(v0, 0))).add(i.mul(u).mul(new Complex(Math.log(S0), 0))).exp();
 }
 
 /** Black-Scholes call for benchmark and IV inversion */
