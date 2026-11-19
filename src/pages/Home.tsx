@@ -2,7 +2,7 @@ import { InlineMath } from 'react-katex'
 import 'katex/dist/katex.min.css'
 import { simulateVasicekExact } from '../models/vasicek/vasicek'
 import { simulateHeston } from '../models/heston/heston'
-import Plot from 'react-plotly.js'
+import Plot from '../components/Plot'
 
 export function Home({ setPage }: { setPage: (p: any) => void }) {
   const vasicek = simulateVasicekExact({ r0: 0.03, a: 0.5, b: 0.04, sigma: 0.01, T: 5, nSteps: 100, nPaths: 8, seed: 1 })
