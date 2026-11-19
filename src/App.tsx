@@ -1,14 +1,15 @@
-import { useState, Component, type ReactNode, type ErrorInfo } from 'react'
+import { useState, Component, Suspense, lazy, type ReactNode, type ErrorInfo } from 'react'
 import { Home } from './pages/Home'
-import { VasicekLab } from './pages/VasicekLab'
-import { HestonLab } from './pages/HestonLab'
-import { PricingLab } from './pages/PricingLab'
-import { SmileLab } from './pages/SmileLab'
-import { Foundations } from './pages/Foundations'
-import { Comparison } from './pages/Comparison'
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react'
 
 type Page = 'home' | 'vasicek' | 'heston' | 'pricing' | 'smile' | 'foundations' | 'comparison'
+
+const VasicekLab = lazy(() => import('./pages/VasicekLab').then(m => ({ default: m.VasicekLab })))
+const HestonLab = lazy(() => import('./pages/HestonLab').then(m => ({ default: m.HestonLab })))
+const PricingLab = lazy(() => import('./pages/PricingLab').then(m => ({ default: m.PricingLab })))
+const SmileLab = lazy(() => import('./pages/SmileLab').then(m => ({ default: m.SmileLab })))
+const Foundations = lazy(() => import('./pages/Foundations').then(m => ({ default: m.Foundations })))
+const Comparison = lazy(() => import('./pages/Comparison').then(m => ({ default: m.Comparison })))
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; message: string }> {
   state = { hasError: false, message: '' }
@@ -102,13 +103,15 @@ export default function App() {
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         <ErrorBoundary>
-          {page === 'home' && <Home setPage={setPage} />}
-          {page === 'vasicek' && <VasicekLab />}
-          {page === 'heston' && <HestonLab />}
-          {page === 'pricing' && <PricingLab />}
-          {page === 'smile' && <SmileLab />}
-          {page === 'comparison' && <Comparison />}
-          {page === 'foundations' && <Foundations />}
+          <Suspense fallback={<div className="text-slate-400">Loading…</div>}>
+            {page === 'home' && <Home setPage={setPage} />}
+            {page === 'vasicek' && <VasicekLab />}
+            {page === 'heston' && <HestonLab />}
+            {page === 'pricing' && <PricingLab />}
+            {page === 'smile' && <SmileLab />}
+            {page === 'comparison' && <Comparison />}
+            {page === 'foundations' && <Foundations />}
+          </Suspense>
         </ErrorBoundary>
       </main>
 
