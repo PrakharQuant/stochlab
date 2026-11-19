@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import Plot from 'react-plotly.js'
+import Plot from '../components/Plot'
 import { InlineMath, BlockMath } from 'react-katex'
 import { simulateVasicekExact, vasicekExpectation, vasicekVariance, halfLife, vasicekBondPrice, vasicekYield, type VasicekParams } from '../models/vasicek/vasicek'
 
@@ -107,8 +107,8 @@ export function VasicekLab() {
             paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(15,23,42,0.6)',
             font: { color: '#94a3b8', size: 11 },
             margin: { t: 30, r: 20, b: 50, l: 60 },
-            xaxis: { title: 'Time (years)', gridcolor: '#1e293b' },
-            yaxis: { title: 'Interest rate', gridcolor: '#1e293b', tickformat: '.1%' },
+            xaxis: { title: { text: 'Time (years)' }, gridcolor: '#1e293b' },
+            yaxis: { title: { text: 'Interest rate' }, gridcolor: '#1e293b', tickformat: '.1%' },
             height: 420, legend: { orientation: 'h', y: -0.15 },
           }}
           config={{ responsive: true, displayModeBar: true }}
@@ -120,12 +120,12 @@ export function VasicekLab() {
         <div className="card">
           <h3 className="text-lg font-medium mb-4">Terminal Rate Distribution</h3>
           <Plot
-            data={[{ x: terminalRates, type: 'histogram', nbinsx: 30, marker: { color: '#22d3ee' } }]}
+            data={[{ x: terminalRates, type: 'histogram', marker: { color: '#22d3ee' } }]}
             layout={{
               paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(15,23,42,0.6)',
               font: { color: '#94a3b8' }, margin: { t: 20, r: 20, b: 40, l: 50 },
-              xaxis: { title: 'Rate', tickformat: '.1%', gridcolor: '#1e293b' },
-              yaxis: { title: 'Count', gridcolor: '#1e293b' }, height: 300,
+              xaxis: { title: { text: 'Rate' }, tickformat: '.1%', gridcolor: '#1e293b' },
+              yaxis: { title: { text: 'Count' }, gridcolor: '#1e293b' }, height: 300,
             }}
             config={{ displayModeBar: false, responsive: true }}
           />
@@ -164,8 +164,8 @@ export function VasicekLab() {
           layout={{
             paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(15,23,42,0.6)',
             font: { color: '#94a3b8' }, margin: { t: 20, r: 20, b: 50, l: 60 },
-            xaxis: { title: 'Maturity (years)', gridcolor: '#1e293b' },
-            yaxis: { title: 'Yield (%)', gridcolor: '#1e293b' }, height: 320,
+            xaxis: { title: { text: 'Maturity (years)' }, gridcolor: '#1e293b' },
+            yaxis: { title: { text: 'Yield (%)' }, gridcolor: '#1e293b' }, height: 320,
           }}
           config={{ displayModeBar: false, responsive: true }}
         />
