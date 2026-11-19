@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import Plot from 'react-plotly.js'
+import Plot from '../components/Plot'
 import { hestonCallPrice, blackScholesCall } from '../models/heston/heston'
 
 function impliedVol(S: number, K: number, r: number, T: number, price: number): number {
@@ -75,14 +75,14 @@ export function SmileLab() {
           layout={{
             paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(15,23,42,0.6)',
             font: { color: '#94a3b8' }, margin: { t: 30, r: 20, b: 50, l: 60 },
-            xaxis: { title: 'Strike', gridcolor: '#1e293b' },
-            yaxis: { title: 'Implied Volatility (%)', gridcolor: '#1e293b' },
+            xaxis: { title: { text: 'Strike' }, gridcolor: '#1e293b' },
+            yaxis: { title: { text: 'Implied Volatility (%)' }, gridcolor: '#1e293b' },
             height: 420, legend: { orientation: 'h', y: -0.15 },
           }}
           config={{ responsive: true }}
         />
         <p className="mt-4 text-sm text-slate-400">
-          Negative ρ tilts the smile into a downward skew typical of equity markets. Increasing ξ steepens the curvature. 
+          Negative ρ tilts the smile into a downward skew typical of equity markets. Increasing ξ steepens the curvature.
           A constant-volatility model can only produce a flat implied-volatility line.
         </p>
       </div>

@@ -1,4 +1,4 @@
-import Plot from 'react-plotly.js'
+import Plot from '../components/Plot'
 import { simulateVasicekExact } from '../models/vasicek/vasicek'
 import { simulateHeston } from '../models/heston/heston'
 

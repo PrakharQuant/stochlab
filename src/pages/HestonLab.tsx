@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import Plot from 'react-plotly.js'
+import Plot from '../components/Plot'
 import { InlineMath, BlockMath } from 'react-katex'
 import { simulateHeston, fellerCondition, type HestonParams } from '../models/heston/heston'
 
@@ -84,15 +84,15 @@ export function HestonLab() {
       <div className="card">
         <h3 className="text-lg font-medium mb-4">Stock Price Paths</h3>
         <Plot
-          data={result.stocks.slice(0, 25).map((path, i) => ({
+          data={result.stocks.slice(0, 25).map((path) => ({
             x: result.times, y: path, type: 'scatter', mode: 'lines',
-            line: { width: 1, color: `rgba(45,212,191,${0.3 + (i%8)*0.07})` }, showlegend: false,
+            line: { width: 1, color: 'rgba(45,212,191,0.45)' }, showlegend: false,
           }))}
           layout={{
             paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(15,23,42,0.6)',
             font: { color: '#94a3b8' }, margin: { t: 20, r: 20, b: 50, l: 60 },
-            xaxis: { title: 'Time', gridcolor: '#1e293b' },
-            yaxis: { title: 'Price', gridcolor: '#1e293b' }, height: 380,
+            xaxis: { title: { text: 'Time' }, gridcolor: '#1e293b' },
+            yaxis: { title: { text: 'Price' }, gridcolor: '#1e293b' }, height: 380,
           }}
           config={{ responsive: true }}
         />
@@ -102,15 +102,15 @@ export function HestonLab() {
         <div className="card">
           <h3 className="text-lg font-medium mb-4">Variance Paths</h3>
           <Plot
-            data={result.variances.slice(0, 15).map((path, i) => ({
+            data={result.variances.slice(0, 15).map((path) => ({
               x: result.times, y: path.map(v => Math.max(v, 0)), type: 'scatter', mode: 'lines',
-              line: { width: 1, color: `rgba(251,191,36,${0.4})` }, showlegend: false,
+              line: { width: 1, color: 'rgba(251,191,36,0.5)' }, showlegend: false,
             }))}
             layout={{
               paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(15,23,42,0.6)',
               font: { color: '#94a3b8' }, margin: { t: 20, r: 20, b: 40, l: 50 },
-              xaxis: { title: 'Time', gridcolor: '#1e293b' },
-              yaxis: { title: 'Variance', gridcolor: '#1e293b' }, height: 300,
+              xaxis: { title: { text: 'Time' }, gridcolor: '#1e293b' },
+              yaxis: { title: { text: 'Variance' }, gridcolor: '#1e293b' }, height: 300,
             }}
             config={{ displayModeBar: false, responsive: true }}
           />
@@ -118,12 +118,12 @@ export function HestonLab() {
         <div className="card">
           <h3 className="text-lg font-medium mb-4">Terminal Price Distribution</h3>
           <Plot
-            data={[{ x: terminalS, type: 'histogram', nbinsx: 25, marker: { color: '#2dd4bf' } }]}
+            data={[{ x: terminalS, type: 'histogram', marker: { color: '#2dd4bf' } }]}
             layout={{
               paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(15,23,42,0.6)',
               font: { color: '#94a3b8' }, margin: { t: 20, r: 20, b: 40, l: 50 },
-              xaxis: { title: 'Terminal S', gridcolor: '#1e293b' },
-              yaxis: { title: 'Count', gridcolor: '#1e293b' }, height: 300,
+              xaxis: { title: { text: 'Terminal S' }, gridcolor: '#1e293b' },
+              yaxis: { title: { text: 'Count' }, gridcolor: '#1e293b' }, height: 300,
             }}
             config={{ displayModeBar: false, responsive: true }}
           />
@@ -134,7 +134,6 @@ export function HestonLab() {
         <h3 className="text-lg font-medium mb-2">Correlation Effect</h3>
         <p className="text-sm text-slate-400 mb-4">
           Current ρ = {params.rho.toFixed(2)}. Strongly negative correlation produces the equity leverage effect and downward implied-volatility skew.
-          Adjust ρ and regenerate to observe the change in path co-movement.
         </p>
         <button onClick={() => setParams(p => ({ ...p, seed: Math.floor(Math.random()*10000) }))} className="btn btn-primary">
           Regenerate paths
