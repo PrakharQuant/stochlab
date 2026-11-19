@@ -73,7 +73,7 @@ export default function App() {
           </nav>
           <div className="flex items-center gap-3 text-slate-400">
             <a href="mailto:bestofprakhar@gmail.com" className="hover:text-cyan-400" title="Email"><Mail size={18} /></a>
-            <a href="https://www.linkedin.com/in/prakhar-gupta" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400" title="LinkedIn"><Linkedin size={18} /></a>
+            <a href="https://www.linkedin.com/in/prakhar-gupta-5b7250372" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400" title="LinkedIn"><Linkedin size={18} /></a>
             <a href="https://twitter.com/PrakharQuant" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400" title="Twitter / X"><Twitter size={18} /></a>
             <a href="https://github.com/PrakharQuant/stochlab" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400" title="GitHub"><Github size={18} /></a>
           </div>
@@ -122,7 +122,7 @@ export default function App() {
         </p>
         <div className="flex justify-center gap-4">
           <a href="mailto:bestofprakhar@gmail.com" className="hover:text-cyan-400"><Mail size={16} /></a>
-          <a href="https://www.linkedin.com/in/prakhar-gupta" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400"><Linkedin size={16} /></a>
+          <a href="https://www.linkedin.com/in/prakhar-gupta-5b7250372" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400"><Linkedin size={16} /></a>
           <a href="https://twitter.com/PrakharQuant" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400"><Twitter size={16} /></a>
           <a href="https://github.com/PrakharQuant" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400"><Github size={16} /></a>
         </div>
